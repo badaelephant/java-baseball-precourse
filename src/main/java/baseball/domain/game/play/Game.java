@@ -24,7 +24,8 @@ public class Game {
         this.status = status.PLAYING;
     }
 
-    public void play(List<Integer> computerNumbers, List<Integer> playerNumbers){
+    public void updateGameResult(List<Integer> computerNumbers, List<Integer> playerNumbers){
+        resetResult();
         result.checkResult(computerNumbers, playerNumbers);
         showMessage();
         checkFinish();
@@ -40,12 +41,12 @@ public class Game {
         return this.status == GameStatus.PLAYING;
     }
 
-    public void restartGame() {
-        this.result.reset();
+    public void resetGame() {
+        resetResult();
         this.status = status.PLAYING;
     }
 
-    public void resetResult(){
+    private void resetResult(){
         this.result.reset();
     }
     private void showMessage() {
