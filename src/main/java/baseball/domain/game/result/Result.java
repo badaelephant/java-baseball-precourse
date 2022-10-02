@@ -1,6 +1,7 @@
 package baseball.domain.game.result;
 
 import baseball.domain.game.play.GameRule;
+import baseball.domain.messages.ExceptionMessage;
 import baseball.domain.messages.ResultMessage;
 
 import java.util.List;
@@ -27,6 +28,16 @@ public class Result {
             int playerNumber = playerNumbers.get(i);
             this.strike.check(cumputerNumber == playerNumber);
             this.ball.check(computerNumbers, playerNumber, i);
+        }
+        checkResultValidation();
+    }
+
+    private void checkResultValidation() {
+        if(this.strike.getCount()>3 || this.ball.getCount()>3){
+            throw new InternalError(ExceptionMessage.IMPOSSIBLE_RESULT);
+        }
+        if(this.strike.getCount() == 2 && this.ball.getCount() ==1){
+            throw new InternalError(ExceptionMessage.IMPOSSIBLE_RESULT);
         }
     }
 
