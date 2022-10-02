@@ -10,6 +10,12 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * 컴퓨터 테스트
+ *
+ * @author YONGSEOK CHOI
+ * @version 1.0 2022.10.02
+ */
 public class ComputerTest {
     @Test()
     @DisplayName("세자리 숫자가 잘 생성되는지 검증")

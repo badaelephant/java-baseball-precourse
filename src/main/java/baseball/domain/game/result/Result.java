@@ -4,16 +4,16 @@ import baseball.domain.game.play.GameRule;
 import baseball.domain.messages.ExceptionMessage;
 import baseball.domain.messages.ResultMessage;
 
-import java.util.List;
+import java.util.*;
 
 /**
- * info : 게임의 결과값인 게임결과 클래스
- * action : 컴퓨터의 값과 사용자의 값을 check하여 Strike, Ball의 갯수를 업데이트함.
- *          게임결과의 Strike, Ball의 구성에 따라 사전 정의해둔 결과 메시지를 생성함.
+ * 게임 결과 클래스
+ *
  * @author YONGSEOK CHOI
  * @version 1.0 2022.10.02
  */
 public class Result {
+
     private final Strike strike;
     private final Ball ball;
 
@@ -34,31 +34,49 @@ public class Result {
     }
 
     private void checkResultValidation() {
-        if(this.strike.getCount()>3 || this.ball.getCount()>3){
+        if (this.strike.getCount() > 3 || this.ball.getCount() > 3) {
             throw new InternalError(ExceptionMessage.IMPOSSIBLE_RESULT);
         }
-        if(this.strike.getCount() == 2 && this.ball.getCount() ==1){
+        if (this.strike.getCount() == 2 && this.ball.getCount() == 1) {
             throw new InternalError(ExceptionMessage.IMPOSSIBLE_RESULT);
         }
     }
-    public int getStrikeCount(){
+
+    public int getStrikeCount() {
         return this.strike.getCount();
     }
-    public int getBallCount(){
+
+    public int getBallCount() {
         return this.ball.getCount();
     }
 
-    public String getResultMessage(){
-        if(this.strike.getCount() == 3 && this.ball.getCount()== 0){
+    private boolean is3Strike() {
+        return this.strike.getCount() == 3 && this.ball.getCount() == 0;
+    }
+
+    private boolean isOnlyBall() {
+        return !this.strike.is() && this.ball.is();
+    }
+
+    private boolean isOnlyStrike() {
+        return this.strike.is() && !this.ball.is();
+    }
+
+    private boolean isStrikeAndBall() {
+        return this.strike.is() && this.ball.is();
+    }
+
+    public String getResultMessage() {
+        if (is3Strike()) {
             return ResultMessage.THREE_STRIKE;
         }
-        if (this.strike.is() && this.ball.is()) {
+        if (isStrikeAndBall()) {
             return String.format(ResultMessage.STRIKE_BALL_MIX, this.ball.getCount(), this.strike.getCount());
         }
-        if (!this.strike.is() && this.ball.is()) {
+        if (isOnlyBall()) {
             return String.format(ResultMessage.BALL, this.ball.getCount());
         }
-        if (this.strike.is() && !this.ball.is()) {
+        if (isOnlyStrike()) {
             return String.format(ResultMessage.STRIKE, this.strike.getCount());
         }
         return ResultMessage.NOTHING;
@@ -68,7 +86,7 @@ public class Result {
         return this.strike.getCount() == 3 && this.ball.getCount() == 0;
     }
 
-    private void reset(){
+    private void reset() {
         this.strike.reset();
         this.ball.reset();
     }

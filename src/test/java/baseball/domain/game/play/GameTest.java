@@ -7,10 +7,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * 게임 테스트
+ *
+ * @author YONGSEOK CHOI
+ * @version 1.0 2022.10.02
+ */
 public class GameTest {
     @Test()
     @DisplayName("3스트라이크인 경우 게임상태가 종료됨 으로 바뀌는지 테스트")
-    void checkFinishTest_3strike(){
+    void updateGameResultTest_isPlaying_False(){
         List<Integer> computerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
         List<Integer> playerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
         Game game = new Game();
@@ -19,7 +26,7 @@ public class GameTest {
     }
     @Test()
     @DisplayName("결과가 3스트라이크가 아닌경우 게임상태가 진행중인지 테스트")
-    void checkFinishTest_nothing(){
+    void updateGameResultTest_isPlaying_True(){
         List<Integer> computerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
         List<Integer> playerNumbers = new ArrayList<>(Arrays.asList(4,5,6));
         Game game = new Game();
@@ -28,7 +35,7 @@ public class GameTest {
     }
     @Test()
     @DisplayName("게임상태가 종료된 이후, 리셋하면 다시 게임중으로 바뀌는지 테스트")
-    void gameResetTest(){
+    void resetGameTest(){
         List<Integer> computerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
         List<Integer> playerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
         Game game = new Game();

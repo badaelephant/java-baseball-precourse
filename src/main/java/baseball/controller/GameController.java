@@ -9,26 +9,27 @@ import baseball.view.Input;
 import java.util.List;
 
 /**
- * 내용 : 게임의 사용자와 컴퓨터, 게임이 상호작용하는 컨트롤러 클래스 - 게임방 혹은 게임매니저 역할
- * 액션 : startPlay에서 값의 초기화를 위해 restartGame을 해주고,
- *       컴퓨터와 사용자의 값을 받고, 결과 확인하는 프로세스를 반복해서 돌림
+ * 게임 컨트롤러 클래스
+ *
  * @author YONGSEOK CHOI
  * @version 1.0 2022.10.02
  */
 public class GameController {
+
     private final Game game;
     private final Player player;
     private final Computer computer;
 
-    public GameController(){
+    public GameController() {
         this.player = new Player();
         this.computer = new Computer();
         this.game = new Game();
     }
-    public void startGame(){
+
+    public void startGame() {
         game.resetGame();
         List<Integer> computerNumbers = computer.generateNumbers();
-        while (game.isPlaying()){
+        while (game.isPlaying()) {
             String inputNumbers = Input.getNumberInputFromPlayer();
             List<Integer> playerNumbers = player.pickNumbers(inputNumbers);
             game.updateGameResult(computerNumbers, playerNumbers);
@@ -36,9 +37,9 @@ public class GameController {
         askReplay();
     }
 
-    private void askReplay(){
+    private void askReplay() {
         String answer = Input.getReplayInputFromPlayer();
-        if(answer.equals(GameRule.RESTART)){
+        if (answer.equals(GameRule.RESTART)) {
             startGame();
         }
     }

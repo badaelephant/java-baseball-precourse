@@ -10,10 +10,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+/**
+ * 플레이어 테스트
+ *
+ * @author YONGSEOK CHOI
+ * @version 1.0 2022.10.02
+ */
 public class PlayerTest {
     @Test()
     @DisplayName("번호변경 정상성공 케이스")
-    void pickNumbersTest_successCase() {
+    void pickNumbersTest_success() {
         Player player = new Player();
         String inputNumbers = "123";
         List<Integer> pickedNumbers = player.pickNumbers(inputNumbers);
