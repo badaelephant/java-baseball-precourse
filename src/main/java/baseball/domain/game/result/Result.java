@@ -7,9 +7,9 @@ import baseball.domain.messages.ResultMessage;
 import java.util.List;
 
 /**
- * @info 게임의 결과값인 게임결과 클래스
- * @action 컴퓨터의 값과 사용자의 값을 check하여 Strike, Ball의 갯수를 업데이트함.
- *         게임결과의 Strike, Ball의 구성에 따라 사전 정의해둔 결과 메시지를 생성함.
+ * info : 게임의 결과값인 게임결과 클래스
+ * action : 컴퓨터의 값과 사용자의 값을 check하여 Strike, Ball의 갯수를 업데이트함.
+ *          게임결과의 Strike, Ball의 구성에 따라 사전 정의해둔 결과 메시지를 생성함.
  * @author YONGSEOK CHOI
  * @version 1.0 2022.10.02
  */
@@ -23,6 +23,7 @@ public class Result {
     }
 
     public void checkResult(List<Integer> computerNumbers, List<Integer> playerNumbers) {
+        reset();
         for (int i = 0; i < GameRule.GAME_COUNT; i++) {
             int cumputerNumber = computerNumbers.get(i);
             int playerNumber = playerNumbers.get(i);
@@ -39,6 +40,12 @@ public class Result {
         if(this.strike.getCount() == 2 && this.ball.getCount() ==1){
             throw new InternalError(ExceptionMessage.IMPOSSIBLE_RESULT);
         }
+    }
+    public int getStrikeCount(){
+        return this.strike.getCount();
+    }
+    public int getBallCount(){
+        return this.ball.getCount();
     }
 
     public String getResultMessage(){
@@ -61,7 +68,7 @@ public class Result {
         return this.strike.getCount() == 3 && this.ball.getCount() == 0;
     }
 
-    public void reset(){
+    private void reset(){
         this.strike.reset();
         this.ball.reset();
     }
