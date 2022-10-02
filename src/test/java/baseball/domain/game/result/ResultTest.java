@@ -86,7 +86,7 @@ public class ResultTest {
     }
 
     @Test
-    @DisplayName("리셋기능 테스트")
+    @DisplayName("리셋기능 테스트: checkResult호출시 reset되는지")
     void resetTest(){
         List<Integer> computerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
         List<Integer> playerNumbers = new ArrayList<>(Arrays.asList(1,2,3));
@@ -96,9 +96,9 @@ public class ResultTest {
         assertTrue(result.getStrikeCount()==3 && result.getBallCount()==0);
         assertEquals(ResultMessage.THREE_STRIKE, result.getResultMessage());
         assertTrue(result.isFinished());
-        result.reset();
-        assertTrue(result.getStrikeCount()==0 && result.getBallCount()==0);
-        assertEquals(ResultMessage.NOTHING, result.getResultMessage());
+        List<Integer> newPlayerNumbers = new ArrayList<>(Arrays.asList(2,3,4));
+        result.checkResult(computerNumbers, newPlayerNumbers);
+        assertTrue(result.getStrikeCount()==0 && result.getBallCount()==2);
         assertFalse(result.isFinished());
     }
 
