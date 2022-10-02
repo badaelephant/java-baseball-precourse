@@ -39,9 +39,7 @@ public class PlayerTest {
     void pickNumbersTest_exception_inputLengthNotMatchTest() {
         Player player = new Player();
         String numbers = "123456";
-        Throwable exception = assertThrows(RuntimeException.class, () -> {
-            player.pickNumbers(numbers);
-        });
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> player.pickNumbers(numbers));
         assertEquals(ExceptionMessage.INPUT_LENGTH_NOT_MATCH, exception.getMessage());
     }
     @Test()
@@ -50,12 +48,8 @@ public class PlayerTest {
         Player player = new Player();
         String numbers = "100";
         String alphabets = "abc";
-        Throwable exceptionNumber = assertThrows(RuntimeException.class, () -> {
-            player.pickNumbers(numbers);
-        });
-        Throwable exceptionAlphabet = assertThrows(RuntimeException.class, () -> {
-            player.pickNumbers(alphabets);
-        });
+        Throwable exceptionNumber = assertThrows(IllegalArgumentException.class, () -> player.pickNumbers(numbers));
+        Throwable exceptionAlphabet = assertThrows(IllegalArgumentException.class, () -> player.pickNumbers(alphabets));
         assertEquals(ExceptionMessage.INPUT_NUMBER_NOT_IN_RANGE, exceptionNumber.getMessage());
         assertEquals(ExceptionMessage.INPUT_NUMBER_NOT_IN_RANGE, exceptionAlphabet.getMessage());
     }
